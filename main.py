@@ -1,12 +1,13 @@
-import logging
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from telegram import Update
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 
+# ...
 # Fungsi yang akan dipanggil saat /start diberikan
 def start(update, context):
     update.message.reply_text("Halo! Aku adalah bot gabut yang keren. Mari kita mulai obrolan!")
 
 # Fungsi yang akan dipanggil saat pengguna mengirim pesan teks
-def respond_to_text(update, context):
+def respond_to_text(update: Update, context: CallbackContext):
     user_message = update.message.text.lower()
     response = generate_response(user_message)
     update.message.reply_text(response)
