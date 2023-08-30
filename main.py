@@ -2,7 +2,7 @@ import telebot
 from telebot import types
 
 # Ganti 'TOKEN_BOT_ANDA' dengan token bot yang Anda dapatkan dari BotFather di Telegram
-TOKEN = '6396387965:AAHIUuWxTJMfYCrATSXMZOf1a5OI6_km0AM'
+TOKEN = '6396387965:AAGsdB3_jOaQeCKEDa588UR07vE6aBzYPlo'
 bot = telebot.TeleBot(TOKEN)
 
 # ID saluran Anda
