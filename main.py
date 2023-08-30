@@ -8,9 +8,7 @@ bot = telebot.TeleBot(TOKEN)
 
 # Keyboard kustom lebih kecil
 keyboard = types.ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
-start_button = types.KeyboardButton('/start')
-help_button = types.KeyboardButton('/help')
-keyboard.add(start_button, help_button)
+keyboard.add("/gambar", "/fakta", "/lelucon")
 
 # Daftar link gambar acak
 image_links = [
@@ -21,50 +19,38 @@ image_links = [
 
 # Daftar fakta menarik
 facts = [
-    "Fakta menarik 1.",
-    "Fakta menarik 2.",
+    "Fakta menarik 1 adalah Yang Buat Bot Ini Sukak Terhadap Kamu Karena dia udah lama mendam perasaan kepada mu ❤",
+    "Fakta menarik 2 adalah kamu sama sekali tidak suka terhadap owner saya",
     # Tambahkan fakta lainnya di sini
 ]
 
 # Daftar lelucon lucu
 jokes = [
-    "Dua Tiga Tutup Botol Mukak Kau Macam Kontol",
-    "Btw Aku Sayang Kalian ",
+    "Lelucon lucu 1.",
+    "Lelucon lucu 2.",
     # Tambahkan lelucon lainnya di sini
 ]
 
-# Perintah start
-@bot.message_handler(commands=['start'])
+# Perintah start dan help
+@bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
-    bot.reply_to(message, "Halo! Aku adalah bot interaktif. Ketik /help untuk melihat opsi.", reply_markup=keyboard)
+    welcome_text = "Halo! Aku adalah bot interaktif. Pilih opsi di bawah ini:"
+    bot.reply_to(message, welcome_text, reply_markup=keyboard)
 
-# Perintah help
-@bot.message_handler(commands=['help'])
-def send_help(message):
-    help_text = "Aku adalah bot yang bisa melakukan hal-hal keren!\n\n" \
-                "Pilih salah satu opsi:\n" \
-                "/gambar - Kirim gambar acak\n" \
-                "/fakta - Kirim fakta menarik\n" \
-                "/lelucon - Berikan lelucon lucu"
-    bot.reply_to(message, help_text, reply_markup=keyboard)
-
-# Perintah gambar
-@bot.message_handler(commands=['gambar'])
-def send_image(message):
-    random_image = random.choice(image_links)
-    bot.send_photo(message.chat.id, photo=random_image)
-
-# Perintah fakta
-@bot.message_handler(commands=['fakta'])
-def send_fact(message):
-    random_fact = random.choice(facts)
-    bot.reply_to(message, random_fact)
-
-# Perintah lelucon
-@bot.message_handler(commands=['lelucon'])
-def send_joke(message):
-    random_joke = random.choice(jokes)
-    bot.reply_to(message, random_joke)
+# Tanggapan berdasarkan kata kunci
+@bot.message_handler(func=lambda message: any(keyword in message.text.lower() for keyword in ['gambar', 'fakta', 'lelucon']))
+def respond_to_keyword(message):
+    if 'gambar' in message.text.lower():
+        random_image = random.choice(image_links)
+        bot.send_photo(message.chat.id, photo=random_image)
+    elif 'fakta' in message.text.lower():
+        random_fact = random.choice(facts)
+        bot.reply_to(message, random_fact)
+    elif 'lelucon' in message.text.lower():
+        random_joke = random.choice(jokes)
+        bot.reply_to(message, random_joke)
+    else:
+        bot.reply_to(message, "Maaf, aku tidak mengerti perintahmu.")
 
 # Menjalankan bot
 bot.polling()
