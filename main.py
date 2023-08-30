@@ -1,7 +1,7 @@
 import telebot
 
 # Ganti 'YOUR_BOT_TOKEN' dengan token bot Anda
-bot = telebot.TeleBot('6396387965:AAHX5skZodxk19t44JztLMEwQxk-l0Qyznk')
+bot = telebot.TeleBot('6396387965:AAHVSjgaqZPYZ6U4tdceG_-b2CEzDi2EtG8')
 
 def start(message):
     bot.send_message(message.chat.id, "Halo! Aku adalah bot gabut. Kirimkan pesan apapun dan kita bisa ngobrol santai!")
