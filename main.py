@@ -16,7 +16,7 @@ def handle_message(message):
         response = f"Aku hanya bot, tapi aku baik-baik saja, {user_name}."
     elif user_input == 'siapa kamu?':
         response = "Aku adalah bot gabut, tidak punya identitas yang jelas. 😄"
-    elif user-input == 'kenalan':
+    elif user_input == 'kenalan':
         response = "perkenalkan nama saya Bot Gabut, lalu nama kamu siapa?"
     elif user_input == 'nama':
         response = f"senang berkenalan dengan {user_name} Mu 😊."
