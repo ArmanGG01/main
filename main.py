@@ -14,9 +14,11 @@ def handle_message(message):
     else:
         bot.send_message(message.chat.id, "Hmmm... Aku juga tidak terlalu tahu apa yang harus kukatakan. 🤷‍♂️")
 
+@bot.message_handler(commands=['start', 'help'])
 def on_start_command(message):
     start(message)
 
+@bot.message_handler(func=lambda message: True)
 def on_any_message(message):
     handle_message(message)
 
