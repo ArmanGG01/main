@@ -1,37 +1,37 @@
-import telebot
+import logging
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
-# Ganti 'YOUR_BOT_TOKEN' dengan token bot Anda
-bot = telebot.TeleBot('6396387965:AAHVSjgaqZPYZ6U4tdceG_-b2CEzDi2EtG8')
+# Fungsi yang akan dipanggil saat /start diberikan
+def start(update, context):
+    update.message.reply_text("Halo! Aku adalah bot gabut yang keren. Mari kita mulai obrolan!")
 
-def start(message):
-    bot.send_message(message.chat.id, "Halo! Aku adalah bot gabut yang di ciptakan oleh Arman. Kirimkan pesan apapun dan kita bisa ngobrol santai!")
+# Fungsi yang akan dipanggil saat pengguna mengirim pesan teks
+def respond_to_text(update, context):
+    user_message = update.message.text.lower()
+    response = generate_response(user_message)
+    update.message.reply_text(response)
 
-def handle_message(message):
-    user_input = message.text.lower()
-    user_name = message.from_user.first_name
-    
-    if user_input in ['halo', 'hi', 'hai']:
-        response = f"Halo {user_name}! Apa kabar?"
-    elif user_input == 'apa kabar?':
-        response = f"Aku hanya bot, tapi aku baik-baik saja, {user_name}."
-    elif user_input == 'siapa kamu?':
-        response = "Aku adalah bot gabut, tidak punya identitas yang jelas. 😄"
-    elif user_input == 'kenalan':
-        response = "perkenalkan nama saya Bot Gabut, lalu nama kamu siapa?"
-    elif user_input == 'nama':
-        response = f"senang berkenalan dengan {user_name} Mu 😊."
+# Fungsi untuk menghasilkan respons berdasarkan pesan pengguna
+def generate_response(user_message):
+    if "halo" in user_message:
+        return "Halo juga! Ada yang bisa aku bantu?"
+    elif "apa kabar?" in user_message:
+        return "Aku baik-baik saja, terima kasih! Bagaimana denganmu?"
+    elif "lagi apa?" in user_message:
+        return "Aku sedang di sini siap melayani kamu! Kamu sendiri?"
     else:
-        response = f"Hmmm... Aku juga tidak terlalu tahu apa yang harus kukatakan, {user_name}. 🤷‍♂️"
-        
-    bot.send_message(message.chat.id, response)
+        return "Hmm, maaf aku belum sepenuhnya mengerti apa yang kamu maksud."
 
-@bot.message_handler(commands=['start', 'help'])
-def on_start_command(message):
-    start(message)
+def main():
+    # Ganti "TOKEN_ANDA" dengan token bot Telegram Anda
+    updater = Updater(token="6396387965:AAHVSjgaqZPYZ6U4tdceG_-b2CEzDi2EtG8", use_context=True)
+    dp = updater.dispatcher
 
-@bot.message_handler(func=lambda message: True)
-def on_any_message(message):
-    handle_message(message)
+    dp.add_handler(CommandHandler("start", start))
+    dp.add_handler(MessageHandler(Filters.text & ~Filters.command, respond_to_text))
 
-# Jalankan bot
-bot.polling()
+    updater.start_polling()
+    updater.idle()
+
+if __name__ == '__main__':
+    main()
