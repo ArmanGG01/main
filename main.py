@@ -1,18 +1,11 @@
 # main.py
-from bot import ChatBot
-from nlp_processor import NLPProcessor
+from telegram_bot import TelegramBot
 
 def main():
-    bot = ChatBot()
-    print(bot.name + ": Halo! Saya adalah " + bot.name + ". Silakan chat dengan saya.")
-    
-    while True:
-        user_input = input("Anda: ")
-        if user_input.lower() == 'exit':
-            print(bot.name + ": Sampai jumpa!")
-            break
-        response = bot.respond(user_input)
-        print(bot.name + ": " + response)
+    bot_token = "6396387965:AAHX5skZodxk19t44JztLMEwQxk-l0Qyznk"  # Gantikan dengan token bot Anda
+    telegram_bot = TelegramBot(bot_token)
+    print("Bot sedang berjalan di platform Telegram...")
+    telegram_bot.start_polling()
 
 if __name__ == "__main__":
     main()
