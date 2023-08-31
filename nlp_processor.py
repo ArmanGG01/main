@@ -1,10 +1,11 @@
 # nlp_processor.py
-import spacy
+import nltk
+nltk.download('punkt')
 
 class NLPProcessor:
     def __init__(self):
-        self.nlp = spacy.load("en_core_web_sm")
+        pass
     
     def process_input(self, user_input):
-        doc = self.nlp(user_input)
-        return doc
+        words = nltk.word_tokenize(user_input)
+        return words
